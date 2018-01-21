@@ -23,7 +23,7 @@ public class test {
 		//creation JFrame
 		JFrame f=new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(1500, 700);
+		f.setSize(1300, 700);
 		f.setLocationRelativeTo(null);
 
 		//On crée nos différents conteneurs de couleur différente
@@ -31,15 +31,24 @@ public class test {
 		cell1.setPreferredSize(new Dimension(600, 600));
 		JButton init = new JButton("Initialiser");
 		JButton exec = new JButton("Executer");
-		JLabel image2 = new JLabel(new ImageIcon("images/puzzle.png"));
+		JLabel image2 = new JLabel(new ImageIcon("images/cafe_tache1_gimp4.png"));
+		JLabel image3 = new JLabel(new ImageIcon("images/cafe_tache2_gimp4.png"));
+		JLabel image4 = new JLabel(new ImageIcon("images/cafe_tache3_gimp4.png"));
 		cell1.add(init);
 		cell1.add(exec);
 		cell1.add(image2);
-		
+		cell1.add(image3);
+		cell1.add(image4);
+				
 		// Bouger l'image grace à la souris
-		DragListener drag = new DragListener();
+		DragListener drag = new DragListener(image2, image3, image4);
 		image2.addMouseListener( drag );
 		image2.addMouseMotionListener( drag );
+		image3.addMouseListener( drag );
+		image3.addMouseMotionListener( drag );
+		image4.addMouseListener( drag );
+		image4.addMouseMotionListener( drag );
+				
 
 		JPanel cell2 = new JPanel();
 		cell2.setBackground(Color.red);
