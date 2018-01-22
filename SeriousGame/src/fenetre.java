@@ -14,10 +14,12 @@ import javax.swing.JPanel;
 public class fenetre extends JFrame implements ActionListener {
 
 	private static JLabel image2, image3, image4;
-
+	private static JFrame f;
+	private static DragListener drag;
+	
 	public fenetre() {
 		//creation JFrame
-		JFrame f=new JFrame();
+		f=new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(1300, 700);
 		f.setLocationRelativeTo(null);
@@ -25,33 +27,26 @@ public class fenetre extends JFrame implements ActionListener {
 		//On crée nos différents conteneurs
 		JPanel cell1 = new JPanel();
 		cell1.setPreferredSize(new Dimension(600, 600));
-
-		JButton init = new JButton("Initialiser");
+	    JButton init = new JButton("Initialiser");
 		init.addActionListener(this);
 		JButton exec = new JButton("Executer");
 		image2 = new JLabel(new ImageIcon("images/cafe_tache1_gimp4.png"));
 		image3 = new JLabel(new ImageIcon("images/cafe_tache2_gimp4.png"));
 		image4 = new JLabel(new ImageIcon("images/cafe_tache3_gimp4.png"));
-
-		image2.setLocation(200, 200);
-		image3.setLocation(200, 200);
-		image4.setLocation(200, 200);
-
-		cell1.add(init);
+		cell1.add(init); 
 		cell1.add(exec);
 		cell1.add(image2);
 		cell1.add(image3);
 		cell1.add(image4);
-
+		
 		// Bouger l'image grace à la souris
-		DragListener drag = new DragListener(image2, image3, image4);
+		drag = new DragListener(image2, image3, image4);
 		image2.addMouseListener( drag );
 		image2.addMouseMotionListener( drag );
 		image3.addMouseListener( drag );
 		image3.addMouseMotionListener( drag );
 		image4.addMouseListener( drag );
 		image4.addMouseMotionListener( drag );			
-
 
 		JPanel cell2 = new JPanel();
 		cell2.setPreferredSize(new Dimension(600, 200));
@@ -63,8 +58,7 @@ public class fenetre extends JFrame implements ActionListener {
 		JPanel cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(600, 400));
 		JLabel image = new JLabel(new ImageIcon("images/cuisine.PNG"));
-		cell3.add(image);        
-
+		cell3.add(image);
 
 		//Le conteneur principal
 		JPanel content = new JPanel();
@@ -99,6 +93,7 @@ public class fenetre extends JFrame implements ActionListener {
 		image4.setLocation(0, 460);
 		image3.setLocation(190, 460);
 		image2.setLocation(380, 460);
+		drag.newGame();
 	}
 
 }

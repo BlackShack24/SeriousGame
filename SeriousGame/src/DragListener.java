@@ -94,6 +94,11 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 
 	}
 
+	public void newGame() {
+		this.first = false;
+		this.ht.clear();
+	}
+
 	public boolean isTouchedDown(Point j1, JLabel j2) {
 		if(j1.getX() >= (j2.getLocation().getX()-20)
 				&& j1.getX() <= (j2.getLocation().getX()+20)
