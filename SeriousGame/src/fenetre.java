@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,12 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class fenetre extends Canvas implements ActionListener {
 
 	private static JPanel cell0, cell1, cell2, cell3, content;
-	private static JLabel image, image2, image3, image4, text;
+	private static JLabel image, image2, image3, image4, text, text2;
 	private static JButton init, exec;
 	private static JFrame f;
 	private static DragListener drag;
@@ -42,15 +42,16 @@ public class fenetre extends Canvas implements ActionListener {
 
 		cell1 = new JPanel();
 		cell1.setPreferredSize(new Dimension(600, 500));
+//		cell1.setLayout(new GridLayout(1,3));
 		image2 = new JLabel(new ImageIcon("images/cafe_tache1_gimp4.png"));
 		image3 = new JLabel(new ImageIcon("images/cafe_tache2_gimp4.png"));
 		image4 = new JLabel(new ImageIcon("images/cafe_tache3_gimp4.png"));
+//		image2.setVerticalAlignment(JLabel.BOTTOM);
+//		image3.setVerticalAlignment(JLabel.BOTTOM);
+//		image4.setVerticalAlignment(JLabel.BOTTOM);
 		cell1.add(image2);
 		cell1.add(image3);
 		cell1.add(image4);
-		//		cell1.setBackground(Color.RED);
-
-
 		// Bouger l'image grace à la souris
 		drag = new DragListener(image2, image3, image4);
 		image2.addMouseListener( drag );
@@ -62,17 +63,27 @@ public class fenetre extends Canvas implements ActionListener {
 
 		cell2 = new JPanel();
 		cell2.setPreferredSize(new Dimension(600, 100));
+		cell2.setLayout(new GridLayout(2,1));
 		text = new JLabel("Préparer un café");
 		text.setFont(new Font("Arial",Font.ITALIC,20));
+		text.setHorizontalAlignment(JLabel.CENTER);
+		text2 = new JLabel("");
+		text2.setFont(new Font("Arial",Font.ITALIC,20));
+		text2.setHorizontalAlignment(JLabel.CENTER);
+		
+//		text3 = new JLabel("");
+//		text3.setFont(new Font("Arial",Font.ITALIC,20));
 		cell2.add(text);
-		//		cell2.setBackground(Color.YELLOW);
+		cell2.add(text2);
+		
+		//cell2.add(text);
 
 
 		cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(600, 500));
 		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
+		image.setVerticalAlignment(JLabel.BOTTOM);
 		cell3.add(image);
-		//		cell3.setBackground(Color.GREEN);
 
 
 		content = (JPanel) f.getContentPane();
@@ -118,10 +129,10 @@ public class fenetre extends Canvas implements ActionListener {
 		// TODO Auto-generated method stub
 
 		if(arg0.getActionCommand().equalsIgnoreCase("Initialiser")) {
-			init();	
+			init();
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Executer")) {
-			new runGame(drag.getHt(), text);
+			new runGame(drag.getHt(), text2);
 		}
 
 	}
@@ -131,6 +142,7 @@ public class fenetre extends Canvas implements ActionListener {
 		image3.setLocation(190, 370);
 		image2.setLocation(380, 370);
 		drag.newGame();
+		text2.setText("");
 	}
 
 
