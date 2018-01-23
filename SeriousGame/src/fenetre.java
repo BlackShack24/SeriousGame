@@ -1,5 +1,4 @@
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -12,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class fenetre extends Canvas implements ActionListener {
 
@@ -37,7 +37,7 @@ public class fenetre extends Canvas implements ActionListener {
 		exec.addActionListener(this);
 		cell0.add(init); 
 		cell0.add(exec);
-		cell0.setBackground(Color.BLUE);
+		//		cell0.setBackground(Color.BLUE);
 
 
 		cell1 = new JPanel();
@@ -48,7 +48,7 @@ public class fenetre extends Canvas implements ActionListener {
 		cell1.add(image2);
 		cell1.add(image3);
 		cell1.add(image4);
-		cell1.setBackground(Color.RED);
+		//		cell1.setBackground(Color.RED);
 
 
 		// Bouger l'image grace à la souris
@@ -65,14 +65,14 @@ public class fenetre extends Canvas implements ActionListener {
 		text = new JLabel("Préparer un café");
 		text.setFont(new Font("Arial",Font.ITALIC,20));
 		cell2.add(text);
-		cell2.setBackground(Color.YELLOW);
+		//		cell2.setBackground(Color.YELLOW);
 
 
 		cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(600, 500));
 		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
 		cell3.add(image);
-		cell3.setBackground(Color.GREEN);
+		//		cell3.setBackground(Color.GREEN);
 
 
 		content = (JPanel) f.getContentPane();
@@ -121,8 +121,7 @@ public class fenetre extends Canvas implements ActionListener {
 			init();	
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Executer")) {
-			//new runGame(drag.getHt(), text);
-			gameLoop();
+			new runGame(drag.getHt(), text);
 		}
 
 	}
@@ -134,28 +133,7 @@ public class fenetre extends Canvas implements ActionListener {
 		drag.newGame();
 	}
 
-	public static void gameLoop() {
-		while(compt<5) {
-			compt++;
-			//text.setText(""+compt);
-			text.setText("Debut execution tache "+compt);
-			System.out.println("Debut execution tache "+compt);
-			text.paintImmediately(text.getVisibleRect());
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			text.setText("Fin execution tache "+compt);
-			System.out.println("Fin execution tache "+compt);
-			text.paintImmediately(text.getVisibleRect());
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		compt=0;
-	}
+
+
 
 }
