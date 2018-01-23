@@ -3,7 +3,9 @@ public class test {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new fenetre();
+		fenetre f = new fenetre();
+		f.init();
+		//f.gameLoop();
 	}
 	
 }

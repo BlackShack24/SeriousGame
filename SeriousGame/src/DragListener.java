@@ -116,5 +116,9 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 			return true;
 		return false;
 	}
+	
+	public Hashtable getHt() {
+		return ht;
+	}
 
 }
