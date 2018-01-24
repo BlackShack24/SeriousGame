@@ -54,17 +54,17 @@ public class fenetre extends Canvas implements ActionListener {
 		//On crée nos différents conteneurs
 		cell0 = new JPanel();
 		cell0.setPreferredSize(new Dimension(750, 125));
-		cell0.setBackground(Color.BLUE);
+//		cell0.setBackground(Color.BLUE);
 		cell1 = new JPanel();
 		cell1.setPreferredSize(new Dimension(750, 625));
-		cell1.setBackground(Color.YELLOW);
+//		cell1.setBackground(Color.YELLOW);
 		cell2 = new JPanel();
 		cell2.setPreferredSize(new Dimension(750, 125));
 		cell2.setLayout(new GridLayout(2,1));
-		cell2.setBackground(Color.RED);
+//		cell2.setBackground(Color.RED);
 		cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(750, 625));
-		cell3.setBackground(Color.GREEN);
+//		cell3.setBackground(Color.GREEN);
 		
 		// Placement des éléments Bas Droite
 		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
@@ -160,7 +160,7 @@ public class fenetre extends Canvas implements ActionListener {
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Niveau 2")) {
 			al.clear();
-			new fenetre(2, 11);
+			new fenetre(2, 10);
 		}
 
 	}

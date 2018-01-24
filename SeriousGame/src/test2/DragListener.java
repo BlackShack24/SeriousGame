@@ -58,7 +58,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 
 		if(!ht.contains(numPiece) && !ht.containsKey(numPiece)) {
 			if(niveau==1) {
-				depX=200; depY=200;
+				depX=260; depY=160;
 			}
 			else if(niveau==2) {
 				depX=250; depY=30;

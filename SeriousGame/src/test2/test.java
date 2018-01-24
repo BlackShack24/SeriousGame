@@ -7,8 +7,8 @@ public class test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-//		new fenetre(1, 3);
-		new fenetre(2, 10);
+		new fenetre(1, 3);
+//		new fenetre(2, 10);
 
 	}
 	
