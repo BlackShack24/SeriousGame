@@ -27,10 +27,11 @@ public class fenetre extends Canvas implements ActionListener {
 	private static JButton init, exec, next;
 	private static JFrame f;
 	private static DragListener drag;
-	private static int compt = 0;
+	private static int compt = 0, niveau;
 
 	public fenetre(int niveau, int nbPieces) {
 
+		this.niveau = niveau;
 		//creation JFrame
 		f=new JFrame("Serious Game");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,13 +86,12 @@ public class fenetre extends Canvas implements ActionListener {
 
 		// Placement des éléments Bas Gauche
 		for(int i = 0; i < nbPieces; i++) {
-			System.out.println("images/lvl"+niveau+"/lvl"+niveau+"_"+(i+1)+".png");
 			al.add(new JLabel(new ImageIcon("images/lvl"+niveau+"/lvl"+niveau+"_"+(i+1)+".png")));
 			cell1.add((Component) al.get(i));
 		}  
 
 		// Bouger l'image grace à la souris
-		drag = new DragListener(al);
+		drag = new DragListener(al, niveau);
 		for(int i = 0; i < al.size(); i++) {
 			((Component) al.get(i)).addMouseListener( drag );
 			((Component) al.get(i)).addMouseMotionListener( drag );
@@ -156,7 +156,11 @@ public class fenetre extends Canvas implements ActionListener {
 			init();
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Executer")) {
-			new runGame(drag.getHt(), text2, image);
+			new runGame(drag.getHt(), text2, image, niveau);
+		}
+		else if(arg0.getActionCommand().equalsIgnoreCase("Niveau 2")) {
+			al.clear();
+			new fenetre(2, 11);
 		}
 
 	}

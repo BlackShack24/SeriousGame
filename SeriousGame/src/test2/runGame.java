@@ -13,13 +13,14 @@ import javax.swing.Timer;
 public class runGame {
 
 	boolean first = true, stop = false, fin = false, sol = true;
-	int val1, val2, comptFin=0;
+	int val1, val2, comptFin=0, niveau;
 	String tache, urlImg;
 	Timer timer;
 	LinkedList l = new LinkedList();
 
-	public runGame(Hashtable ht, JLabel txt, JLabel img) {
+	public runGame(Hashtable ht, JLabel txt, JLabel img, int niveau) {
 
+		this.niveau = niveau;
 		Enumeration ke = ht.keys();
 
 		timer = new Timer(2000, new ActionListener() {
@@ -48,6 +49,7 @@ public class runGame {
 					}
 					comptFin++;
 				}
+				
 				if(!fin) {
 					l.add(val1);
 					txt.setText(tacheNum(val1));
@@ -69,18 +71,58 @@ public class runGame {
 
 	public String tacheNum(int num) {
 		String tache = "";
-		if(num == 0) {
-			tache = "Ajouter le café dans le filtre";
-			urlImg = "images/cuisine_cafeCafe.PNG";
+		if(niveau==1) {
+			switch(num) {
+			case 0 :
+				tache = "Ajouter le café dans le filtre";
+				urlImg = "images/cuisine_cafeCafe.PNG";
+				break;
+			case 1 :
+				tache = "Remplir d'eau";
+				urlImg = "images/cuisine_cafeEau.PNG";
+				break;
+			case 2 :
+				tache = "Faire chauffer l'eau";
+				urlImg = "images/cuisine_cafeFeu.PNG";
+				break;
+			}
 		}
-		else if (num == 1) {
-			tache = "Remplir d'eau";
-			urlImg = "images/cuisine_cafeEau.PNG";
+		else if (niveau==2) {
+			urlImg = "images/cuisine.PNG";
+			switch(num) {
+			case 0 :
+				tache = "Bouton Start activé";
+				break;
+			case 1 :
+				tache = "Si";
+				break;
+			case 2 :
+				tache = "Contient de l'eau dans le bac";
+				break;
+			case 3 :
+				tache = "Chauffer l'eau à 95°";
+				break;
+			case 4 :
+				tache = "Tant que";
+				break;
+			case 5 :
+				tache = "Contient de l'eau dans le bac";
+				break;
+			case 6 :
+				tache = "Verser l'eau dans le compartiment à café";
+				break;
+			case 7 :
+				tache = "Arrêter machine";
+				break;
+			case 8 :
+				tache = "Sinon";
+				break;
+			case 9 :
+				tache = "Faire clignoter le voyant rouge";
+				break;
+			}
 		}
-		else if (num == 2) {
-			tache = "Faire chauffer l'eau";
-			urlImg = "images/cuisine_cafeFeu.PNG";
-		}
+
 		return tache;
 	}
 
