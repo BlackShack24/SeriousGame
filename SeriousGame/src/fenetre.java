@@ -19,19 +19,55 @@ import javax.swing.JPanel;
 
 public class fenetre extends Canvas implements ActionListener {
 
-	private static JPanel cell0, cell1, cell2, cell3, content;
-	private static JLabel image, image2, image3, image4, text, text_action, text_tache, text_encours,text2;
-	private static JButton init, exec;
+	private static JPanel cell0, cell1, cell2, cell3, cellmenu, content;
+	private static JLabel image, image2, image3, image4, text, text_action, text_tache, text_encours,text2, image_menu;
+	private static JButton init, exec, play;
 	private static JFrame f;
 	private static DragListener drag;
 	private static int compt = 0;
+	private boolean menu = true;
 	
 
 	public fenetre() {
 		//creation JFrame
 		f=new JFrame("Serious Game");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		//creation du menu
+		cellmenu = new JPanel();
+		cellmenu.setPreferredSize(new Dimension(250, 250));
+		text = new JLabel("Alg'Home");
+		text.setFont(new Font("Arial",Font.ITALIC,20));
+		cellmenu.add(text);
+		//image_menu = new JLabel(new ImageIcon("SeriousGame/images/lvl1/lvl1_1.png"));
+		//cellmenu.add(image_menu);
+		play = new JButton("Jouer");
+		setLocation(150, 150);	
+		play.addActionListener(this);
+		cellmenu.add(play); 
+		//cellmenu.setBackground(Color.BLUE);
+		//cellmenu.setLocation(150, 150);	
+		content = (JPanel) f.getContentPane();
+		content.setLayout(null);
+		content.add(this);
+		setIgnoreRepaint(true);
+		//Le conteneur principal
+		//On définit le layout manager
+		content.setLayout(new GridBagLayout());
+		//L'objet servant à positionner les composants
+		GridBagConstraints gbc = new GridBagConstraints();
+		//Partie Gauche Haut
+		gbc.gridy = 0;
+		gbc.gridheight = 1;
+		content.add(cellmenu, gbc);
+		
+		
+		
+		afficher();
+		while (menu) {
+			text.setText("Alg'Home");		
+			}
+		
 		message("Vous venez d’acheter une maison et vous souhaitez qu’elle soit entièrement connectée. Pour cela, vous devez programmer vous-même tous \nles appareils de votre maison.\n" + 
 				"Cette béta est composée de 3 niveaux. Le premier vous permet de vous familiariser avec les outils en vous demandant une action simple. \nEnsuite, nous vous demanderons de programmer les appareils de votre maison.\n",
 				"Pitch");
@@ -115,7 +151,7 @@ public class fenetre extends Canvas implements ActionListener {
 		//On définit le layout manager
 		content.setLayout(new GridBagLayout());
 		//L'objet servant à positionner les composants
-		GridBagConstraints gbc = new GridBagConstraints();
+		//GridBagConstraints gbc = new GridBagConstraints();
 
 		//Partie Gauche Haut
 		gbc.gridx = 0;
@@ -138,6 +174,11 @@ public class fenetre extends Canvas implements ActionListener {
 		gbc.gridx = 6;
 		content.add(cell3, gbc);
 
+		afficher();
+
+	}
+	
+	public void afficher (){
 		f.setContentPane(content);
 		f.pack();
 		f.setVisible(true);
@@ -148,14 +189,17 @@ public class fenetre extends Canvas implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-
-		if(arg0.getActionCommand().equalsIgnoreCase("Initialiser")) {
-			init();
+		if(arg0.getActionCommand().equalsIgnoreCase("Jouer")) {
+			menu =false;
+			f.remove(cellmenu); // on degage le menu
+		}else {
+			if(arg0.getActionCommand().equalsIgnoreCase("Initialiser")) {
+				init();
+			}
+			else if(arg0.getActionCommand().equalsIgnoreCase("")) {
+				new runGame(drag.getHt(), text2, image);
+			}
 		}
-		else if(arg0.getActionCommand().equalsIgnoreCase("")) {
-			new runGame(drag.getHt(), text2, image);
-		}
-
 	}
 
 	public static void init() {
