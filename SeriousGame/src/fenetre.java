@@ -132,7 +132,7 @@ public class fenetre extends Canvas implements ActionListener {
 			init();
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Executer")) {
-			new runGame(drag.getHt(), text2);
+			new runGame(drag.getHt(), text2, image);
 		}
 
 	}
@@ -143,6 +143,7 @@ public class fenetre extends Canvas implements ActionListener {
 		image2.setLocation(380, 370);
 		drag.newGame();
 		text2.setText("");
+		image.setIcon(new ImageIcon("images/cuisine.PNG"));
 	}
 
 
