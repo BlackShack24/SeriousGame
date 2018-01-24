@@ -9,6 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import java.io.*;
+import sun.audio.*;
+
 public class runGame {
 
 	boolean first = true, stop = false, fin = false, sol = true;
@@ -56,9 +61,20 @@ public class runGame {
 					for(int i = 0 ; i < l.size() ; i++) {
 						if((int)l.get(i) != i) sol = false;
 					}
-					if(sol) txt.setText("SUCCES !");
-					else txt.setText("ERREUR !");
+					if(sol) {
+						txt.setText("SUCCES !");
+						urlImg = "SeriousGame/images/cuisine_cafeOui.PNG";
+						img.setIcon((Icon) new ImageIcon(urlImg));
+						soncorrect();
+					}
+					else {
+						txt.setText("ERREUR !");
+						urlImg = "SeriousGame/images/cuisine_cafeNon.PNG";
+						img.setIcon((Icon) new ImageIcon(urlImg));
+						sonfaux ();
+					}
 					timer.stop();
+					
 				}
 			}
 		});
@@ -70,17 +86,71 @@ public class runGame {
 		String tache = "";
 		if(num == 0) {
 			tache = "Ajouter le café dans le filtre";
-			urlImg = "images/cuisine_cafeCafe.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeCafe.PNG";
 		}
 		else if (num == 1) {
 			tache = "Remplir d'eau";
-			urlImg = "images/cuisine_cafeEau.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeEau.PNG";
 		}
 		else if (num == 2) {
 			tache = "Faire chauffer l'eau";
-			urlImg = "images/cuisine_cafeFeu.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeFeu.PNG";
 		}
 		return tache;
 	}
+	
+	//methode faisant un son pour une reponse correcte
+	public void soncorrect () {
+		
+		    // open the sound file as a Java input stream
+		    String gongFile = "SeriousGame/sounds/correct.wav";
+		    InputStream in = null;
+			try {
+				in = new FileInputStream(gongFile);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		    // create an audiostream from the inputstream
+		    AudioStream audioStream = null;
+			try {
+				audioStream = new AudioStream(in);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		    // play the audio clip with the audioplayer class
+		    AudioPlayer.player.start(audioStream);
+		  
+	}
+	
+	//methode faisant un son pour une reponse fausse
+	public void sonfaux () {
+		
+	    // open the sound file as a Java input stream
+	    String gongFile = "SeriousGame/sounds/wrong.wav";
+	    InputStream in = null;
+		try {
+			in = new FileInputStream(gongFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    // create an audiostream from the inputstream
+	    AudioStream audioStream = null;
+		try {
+			audioStream = new AudioStream(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    // play the audio clip with the audioplayer class
+	    AudioPlayer.player.start(audioStream);
+	  
+}
 
 }
