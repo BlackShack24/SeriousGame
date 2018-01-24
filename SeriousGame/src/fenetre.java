@@ -35,7 +35,7 @@ public class fenetre extends Canvas implements ActionListener {
 		
 		
 		//On crée nos différents conteneurs
-
+		
 		cell0 = new JPanel();
 		cell0.setPreferredSize(new Dimension(600, 100));
 		init = new JButton("Initialiser");
@@ -45,12 +45,12 @@ public class fenetre extends Canvas implements ActionListener {
 		cell0.add(init); 
 		cell0.add(exec);
 
-
 		cell1 = new JPanel();
 		cell1.setPreferredSize(new Dimension(600, 500));
-		image2 = new JLabel(new ImageIcon("images/cafe_tache1_gimp4.png"));
-		image3 = new JLabel(new ImageIcon("images/cafe_tache2_gimp4.png"));
-		image4 = new JLabel(new ImageIcon("images/cafe_tache3_gimp4.png"));
+		image2 = new JLabel(new ImageIcon("SeriousGame/images/cafe_tache1_gimp4.png"));
+		image3 = new JLabel(new ImageIcon("SeriousGame/images/cafe_tache2_gimp4.png"));
+		image4 = new JLabel(new ImageIcon("SeriousGame/images/cafe_tache3_gimp4.png"));
+	
 
 		cell1.add(image2);
 		cell1.add(image3);
@@ -84,7 +84,7 @@ public class fenetre extends Canvas implements ActionListener {
 
 		cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(600, 500));
-		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
+		image = new JLabel(new ImageIcon("SeriousGame/images/cuisine.PNG"));
 		cell3.add(image);
 
 
@@ -145,7 +145,7 @@ public class fenetre extends Canvas implements ActionListener {
 		image2.setLocation(380, 370);
 		drag.newGame();
 		text2.setText("");
-		image.setIcon(new ImageIcon("images/cuisine.PNG"));
+		image.setIcon(new ImageIcon("SeriousGame/images/cuisine.PNG"));
 	}
 	
 	public void message(String mess, String titre) {
