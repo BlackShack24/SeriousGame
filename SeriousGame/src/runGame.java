@@ -67,13 +67,13 @@ public class runGame {
 						txt.setText("SUCCES !");
 						urlImg = "SeriousGame/images/cuisine_cafeOui.PNG";
 						img.setIcon((Icon) new ImageIcon(urlImg));
-						soncorrect();
+						son ("correct");
 					}
 					else {
 						txt.setText("ERREUR !");
 						urlImg = "SeriousGame/images/cuisine_cafeNon.PNG";
 						img.setIcon((Icon) new ImageIcon(urlImg));
-						sonfaux ();
+						son ("wrong");
 					}
 					timer.stop();
 					
@@ -89,50 +89,27 @@ public class runGame {
 		if(num == 0) {
 			tache = "Ajouter le café dans le filtre";
 			urlImg = "SeriousGame/images/cuisine_cafeCafe.PNG";
+			son ("coffee");
 		}
 		else if (num == 1) {
 			tache = "Remplir d'eau";
 			urlImg = "SeriousGame/images/cuisine_cafeEau.PNG";
+			son ("water");
 		}
 		else if (num == 2) {
 			tache = "Faire chauffer l'eau";
 			urlImg = "SeriousGame/images/cuisine_cafeFeu.PNG";
+			son ("fire");
 		}
-		return tache;
+		return (""+tache);
 	}
 	
-	//methode faisant un son pour une reponse correcte
-	public void soncorrect () {
-		
-		    // open the sound file as a Java input stream
-		    String gongFile = "SeriousGame/sounds/correct.wav";
-		    InputStream in = null;
-			try {
-				in = new FileInputStream(gongFile);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		    // create an audiostream from the inputstream
-		    AudioStream audioStream = null;
-			try {
-				audioStream = new AudioStream(in);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		    // play the audio clip with the audioplayer class
-		    AudioPlayer.player.start(audioStream);
-		  
-	}
 	
-	//methode faisant un son pour une reponse fausse
-	public void sonfaux () {
+	//methode permettant de jouer un son, le string "son" définit quel son est joué
+	public void son (String son) {
 		
 	    // open the sound file as a Java input stream
-	    String gongFile = "SeriousGame/sounds/wrong.wav";
+	    String gongFile = "SeriousGame/sounds/"+son+".wav";
 	    InputStream in = null;
 		try {
 			in = new FileInputStream(gongFile);
