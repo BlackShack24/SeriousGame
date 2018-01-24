@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -9,12 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.Timer;
 
 public class runGame {
-	
-	boolean first = true, stop = false, fin = false;
-	int val1, val2;
+
+	boolean first = true, stop = false, fin = false, sol = true;
+	int val1, val2, comptFin=0;
 	String tache, urlImg;
 	Timer timer;
-	
+	LinkedList l = new LinkedList();
+
 	public runGame(Hashtable ht, JLabel txt, JLabel img) {
 
 		Enumeration ke = ht.keys();
@@ -37,21 +39,33 @@ public class runGame {
 					val2 = (int) ht.get(val1);
 				}
 				else {
-					txt.setText(tacheNum(val2));
-					img.setIcon((Icon) new ImageIcon(urlImg));
-					timer.stop();
-					fin = true;
+					if(comptFin==0) {
+						l.add(val2);
+						txt.setText(tacheNum(val2));
+						img.setIcon((Icon) new ImageIcon(urlImg));
+						fin = true;
+					}
+					comptFin++;
 				}
-
 				if(!fin) {
+					l.add(val1);
 					txt.setText(tacheNum(val1));
 					img.setIcon((Icon) new ImageIcon(urlImg));
+				}
+				if(comptFin==2) {
+					for(int i = 0 ; i < l.size() ; i++) {
+						if((int)l.get(i) != i) sol = false;
+					}
+					if(sol) txt.setText("SUCCES !");
+					else txt.setText("ERREUR !");
+					timer.stop();
 				}
 			}
 		});
 		timer.start();
+
 	}
-	
+
 	public String tacheNum(int num) {
 		String tache = "";
 		if(num == 0) {
@@ -68,5 +82,5 @@ public class runGame {
 		}
 		return tache;
 	}
-	
+
 }

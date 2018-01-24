@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class fenetre extends Canvas implements ActionListener {
@@ -27,6 +28,12 @@ public class fenetre extends Canvas implements ActionListener {
 		f=new JFrame("Serious Game");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		message("Vous venez d’acheter une maison et vous souhaitez qu’elle soit entièrement connectée. Pour cela, vous devez programmer vous-même tous \nles appareils de votre maison.\n" + 
+				"Cette béta est composée de 3 niveaux. Le premier vous permet de vous familiariser avec les outils en vous demandant une action simple. \nEnsuite, nous vous demanderons de programmer les appareils de votre maison.\n",
+				"Pitch");
+		message("Comme toutes les machines, vous appliquez une suite logique d’actions\n pour vos tâches quotidiennes.  Programmer l’action suivante : se préparer le café.", "Niveau 1");
+		
+		
 		//On crée nos différents conteneurs
 
 		cell0 = new JPanel();
@@ -37,18 +44,14 @@ public class fenetre extends Canvas implements ActionListener {
 		exec.addActionListener(this);
 		cell0.add(init); 
 		cell0.add(exec);
-		//		cell0.setBackground(Color.BLUE);
 
 
 		cell1 = new JPanel();
 		cell1.setPreferredSize(new Dimension(600, 500));
-//		cell1.setLayout(new GridLayout(1,3));
 		image2 = new JLabel(new ImageIcon("images/cafe_tache1_gimp4.png"));
 		image3 = new JLabel(new ImageIcon("images/cafe_tache2_gimp4.png"));
 		image4 = new JLabel(new ImageIcon("images/cafe_tache3_gimp4.png"));
-//		image2.setVerticalAlignment(JLabel.BOTTOM);
-//		image3.setVerticalAlignment(JLabel.BOTTOM);
-//		image4.setVerticalAlignment(JLabel.BOTTOM);
+
 		cell1.add(image2);
 		cell1.add(image3);
 		cell1.add(image4);
@@ -82,7 +85,6 @@ public class fenetre extends Canvas implements ActionListener {
 		cell3 = new JPanel();
 		cell3.setPreferredSize(new Dimension(600, 500));
 		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
-		image.setVerticalAlignment(JLabel.BOTTOM);
 		cell3.add(image);
 
 
@@ -144,6 +146,10 @@ public class fenetre extends Canvas implements ActionListener {
 		drag.newGame();
 		text2.setText("");
 		image.setIcon(new ImageIcon("images/cuisine.PNG"));
+	}
+	
+	public void message(String mess, String titre) {
+		JOptionPane.showMessageDialog(f,mess, titre, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 
