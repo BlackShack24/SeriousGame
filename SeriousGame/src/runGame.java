@@ -56,9 +56,18 @@ public class runGame {
 					for(int i = 0 ; i < l.size() ; i++) {
 						if((int)l.get(i) != i) sol = false;
 					}
-					if(sol) txt.setText("SUCCES !");
-					else txt.setText("ERREUR !");
+					if(sol) {
+						txt.setText("SUCCES !");
+						urlImg = "SeriousGame/images/cuisine_cafeOui.PNG";
+						img.setIcon((Icon) new ImageIcon(urlImg));
+					}
+					else {
+						txt.setText("ERREUR !");
+						urlImg = "SeriousGame/images/cuisine_cafeNon.PNG";
+						img.setIcon((Icon) new ImageIcon(urlImg));
+					}
 					timer.stop();
+					
 				}
 			}
 		});
@@ -70,15 +79,15 @@ public class runGame {
 		String tache = "";
 		if(num == 0) {
 			tache = "Ajouter le café dans le filtre";
-			urlImg = "images/cuisine_cafeCafe.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeCafe.PNG";
 		}
 		else if (num == 1) {
 			tache = "Remplir d'eau";
-			urlImg = "images/cuisine_cafeEau.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeEau.PNG";
 		}
 		else if (num == 2) {
 			tache = "Faire chauffer l'eau";
-			urlImg = "images/cuisine_cafeFeu.PNG";
+			urlImg = "SeriousGame/images/cuisine_cafeFeu.PNG";
 		}
 		return tache;
 	}
