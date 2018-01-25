@@ -33,7 +33,7 @@ public class fenetre extends Canvas implements ActionListener {
 
 		this.niveau = niveau;
 		//creation JFrame
-		f=new JFrame("Serious Game");
+		f=new JFrame("Alg'home");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// CONDITION

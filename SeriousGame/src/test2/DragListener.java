@@ -14,7 +14,6 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 {
 	Point location;
 	MouseEvent pressed;
-	//JLabel tab[] = new JLabel[3];
 	ArrayList tab = new ArrayList();
 	Hashtable ht = new Hashtable();
 	boolean first= false;
@@ -65,87 +64,94 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 			}	
 
 			for(int i=0 ; i<tab.size() ; i++) {	
-				
-				if(isTouched(numPiece, i)) {
+				Piece p = ((Piece) tab.get(numPiece));
+				Piece p2 = ((Piece) tab.get(i));
+				if(isTouched(numPiece, i, p.getCbX(), p.getCbY())) { //UP
 					if(!first) {
 						((Piece) tab.get(i)).getJl().setLocation(depX, depY);
 						first = true;
 					}	
 					component.setLocation(
-							(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(((Piece) tab.get(i)).getCbX()-((Piece) tab.get(numPiece)).getChX()), 
-							(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(((Piece) tab.get(i)).getCbY()-((Piece) tab.get(numPiece)).getChY())
-					);
+							(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(((Piece) tab.get(i)).getChX()-((Piece) tab.get(numPiece)).getCbX()), 
+							(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(((Piece) tab.get(i)).getChY()-((Piece) tab.get(numPiece)).getCbY())
+							);
 					if(i!=numPiece) {
 						if(ht.containsKey(numPiece))
 							if((int)ht.get(numPiece) == i) ht.remove(numPiece);
-						ht.put(i, numPiece);
-					}
-				}
-				
-				else if(isTouched(i, numPiece)) {
-					if(!first) {
-						((Piece) tab.get(i)).getJl().setLocation(depX, depY);
-						first = true;
-					}
-
-					component.setLocation(
-							(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(((Piece) tab.get(i)).getChX()-((Piece) tab.get(numPiece)).getCbX()), 
-							(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(((Piece) tab.get(i)).getChY()-((Piece) tab.get(numPiece)).getCbY())
-					);		
-					if(i!=numPiece) {
-						if(ht.containsKey(i))
-							if((int)ht.get(i) == numPiece) ht.remove(i);
 						ht.put(numPiece, i);
 					}
 				}
-				
-				else if(isTouched2(i, numPiece)) {
+
+				else if(isTouched(i, numPiece, p2.getCbX(), p2.getCbY())) { // DOWN
 					if(!first) {
 						((Piece) tab.get(i)).getJl().setLocation(depX, depY);
 						first = true;
 					}
 					component.setLocation(
-						(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(149-((Piece) tab.get(numPiece)).getChX()), 
-						(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(39-((Piece) tab.get(numPiece)).getChY())
-					);			
+							(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(((Piece) tab.get(i)).getCbX()-((Piece) tab.get(numPiece)).getChX()), 
+							(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(((Piece) tab.get(i)).getCbY()-((Piece) tab.get(numPiece)).getChY())
+							);		
 					if(i!=numPiece) {
 						if(ht.containsKey(i))
 							if((int)ht.get(i) == numPiece) ht.remove(i);
-						ht.put(i,numPiece);
+						ht.put(i, numPiece);
+					}
+				}
+
+				else if(isTouched(i, numPiece, 149, 39)) { // SI & TANT QUE
+					if(niveau==2 && (i == 1 || i == 4) && (numPiece == 2 || numPiece == 5)) {
+						if(!first) {
+							((Piece) tab.get(i)).getJl().setLocation(depX, depY);
+							first = true;
+						}
+						component.setLocation(
+								(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(149-((Piece) tab.get(numPiece)).getChX()), 
+								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(39-((Piece) tab.get(numPiece)).getChY())
+								);			
+						if(i!=numPiece) {
+							if(ht.containsKey(i))
+								if((int)ht.get(i) == numPiece) ht.remove(i);
+							ht.put(i,numPiece);
+						}
+					}
+				}
+
+				if(isTouched(i, numPiece, 246, 93)) { // ALORS
+					if(niveau==2 && (i == 1 || i == 4) && numPiece != 1 && numPiece != 4 && numPiece != 8) {
+						if(!first) {
+							((Piece) tab.get(i)).getJl().setLocation(depX, depY);
+							first = true;
+						}
+						component.setLocation(
+								(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(246-((Piece) tab.get(numPiece)).getChX()), 
+								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(93-((Piece) tab.get(numPiece)).getChY())
+								);			
+						if(i!=numPiece) {
+							if(ht.containsKey(i))
+								if((int)ht.get(i) == numPiece) ht.remove(i);
+							ht.put(i,numPiece);
+						}
+					}
+				}
+
+				if(isTouched(i, numPiece, 147, 40)) { // SINON
+					if(niveau==2 && i == 8 && numPiece != 1 && numPiece != 4 && numPiece != 8) {
+						if(!first) {
+							((Piece) tab.get(i)).getJl().setLocation(depX, depY);
+							first = true;
+						}
+						component.setLocation(
+								(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(147-((Piece) tab.get(numPiece)).getChX()), 
+								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(40-((Piece) tab.get(numPiece)).getChY())
+								);			
+						if(i!=numPiece) {
+							if(ht.containsKey(i))
+								if((int)ht.get(i) == numPiece) ht.remove(i);
+							ht.put(i,numPiece);
+						}
 					}
 				}
 				
-				else if(isTouched3(i, numPiece)) {
-					if(!first) {
-						((Piece) tab.get(i)).getJl().setLocation(depX, depY);
-						first = true;
-					}
-					component.setLocation(
-						(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(246-((Piece) tab.get(numPiece)).getChX()), 
-						(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(93-((Piece) tab.get(numPiece)).getChY())
-					);			
-					if(i!=numPiece) {
-						if(ht.containsKey(i))
-							if((int)ht.get(i) == numPiece) ht.remove(i);
-						ht.put(i,numPiece);
-					}
-				}
-				
-				else if(isTouched4(i, numPiece)) {
-					if(!first) {
-						((Piece) tab.get(i)).getJl().setLocation(depX, depY);
-						first = true;
-					}
-					component.setLocation(
-						(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(147-((Piece) tab.get(numPiece)).getChX()), 
-						(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(40-((Piece) tab.get(numPiece)).getChY())
-					);			
-					if(i!=numPiece) {
-						if(ht.containsKey(i))
-							if((int)ht.get(i) == numPiece) ht.remove(i);
-						ht.put(i,numPiece);
-					}
-				}
 			}
 		}
 
@@ -162,57 +168,17 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 		this.ht.clear();
 	}
 
-	public boolean isTouched(int j1, int j2) {
+	public boolean isTouched(int j1, int j2, int pX, int pY) {
 		Piece p = ((Piece) tab.get(j1));
 		Piece p2 = ((Piece) tab.get(j2));
-		if(p.getJl().getX()+p.getChX() >= p2.getJl().getX()+p2.getCbX()-15
-			&& p.getJl().getX()+p.getChX() <= p2.getJl().getX()+p2.getCbX()+15
-			&& p.getJl().getY()+p.getChY() >= p2.getJl().getY()+p2.getCbY()-15
-			&& p.getJl().getY()+p.getChY() <= p2.getJl().getY()+p2.getCbY()+15)
+		if(p.getJl().getX()+pX >= p2.getJl().getX()+p2.getChX()-15
+		&& p.getJl().getX()+pX <= p2.getJl().getX()+p2.getChX()+15
+		&& p.getJl().getY()+pY >= p2.getJl().getY()+p2.getChY()-15
+		&& p.getJl().getY()+pY <= p2.getJl().getY()+p2.getChY()+15)
 			return true;
 		return false;
 	}
-	
-	public boolean isTouched2(int j1, int j2) {
-		Piece p = ((Piece) tab.get(j1));
-		Piece p2 = ((Piece) tab.get(j2));
-		if((j1 == 1 || j1 == 4) && (j2 == 2 || j2 == 5)) { // 149 39
-			if(p.getJl().getX()+149 >= p2.getJl().getX()+p2.getChX()-15
-				&& p.getJl().getX()+149 <= p2.getJl().getX()+p2.getChX()+15
-				&& p.getJl().getY()+39 >= p2.getJl().getY()+p2.getChY()-15
-				&& p.getJl().getY()+39 <= p2.getJl().getY()+p2.getChY()+15)
-					return true;
-		}
-		return false;
-	}
-	
-	public boolean isTouched3(int j1, int j2) {
-		Piece p = ((Piece) tab.get(j1));
-		Piece p2 = ((Piece) tab.get(j2));
-		if((j1 == 1 || j1 == 4) && j2 != 1 && j2 != 4 && j2 != 8) { // 246 93
-			if(p.getJl().getX()+246 >= p2.getJl().getX()+p2.getChX()-15
-				&& p.getJl().getX()+246 <= p2.getJl().getX()+p2.getChX()+15
-				&& p.getJl().getY()+93 >= p2.getJl().getY()+p2.getChY()-15
-				&& p.getJl().getY()+93 <= p2.getJl().getY()+p2.getChY()+15)
-					return true;
-		}
-		return false;
-	}
-	
-	public boolean isTouched4(int j1, int j2) {
-		Piece p = ((Piece) tab.get(j1));
-		Piece p2 = ((Piece) tab.get(j2));
-		if(j1 == 8 && j2 != 1 && j2 != 4 && j2 != 8) { // 147 40
-			if(p.getJl().getX()+147 >= p2.getJl().getX()+p2.getChX()-15
-				&& p.getJl().getX()+147 <= p2.getJl().getX()+p2.getChX()+15
-				&& p.getJl().getY()+40 >= p2.getJl().getY()+p2.getChY()-15
-				&& p.getJl().getY()+40 <= p2.getJl().getY()+p2.getChY()+15)
-					return true;
-		}
-		return false;
-	}
-	
-	
+
 
 	public Hashtable getHt() {
 		return ht;
@@ -221,7 +187,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 	public int findPiece(Component component) {
 		for(int i=0 ; i<tab.size() ; i++) {
 			if((component.getX() == (int) (((Piece) tab.get(i)).getJl().getX())) 
-			&& (component.getY() == (int) (((Piece) tab.get(i)).getJl().getY()))) {
+					&& (component.getY() == (int) (((Piece) tab.get(i)).getJl().getY()))) {
 				return i;
 			}
 		}
