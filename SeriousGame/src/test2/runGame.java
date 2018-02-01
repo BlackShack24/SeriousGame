@@ -24,7 +24,8 @@ public class runGame {
 	String tache, urlImg;
 	Timer timer;
 	LinkedList l = new LinkedList();
-	int sol1[] = {0,1,2}; 
+	int sol11[] = {0,1,2};
+	int sol12[] = {1,0,2};
 	int sol21[] = {0,1,2,3,4,5,6,8,9,7};
 	int sol22[] = {0,1,5,3,4,2,6,8,9,7};
 
@@ -113,33 +114,45 @@ public class runGame {
 			switch(num) {
 			case 0 :
 				tache = "Bouton Start activé";
+				urlImg = "images/cuisine_cafeOn.png";
+				son ("turnOn");
 				break;
 			case 1 :
 				tache = "Si";
 				break;
 			case 2 :
-				tache = "Contient de l'eau dans le bac";
+				tache = "Il y a de l'eau dans le bac";
+				urlImg = "images/cuisine_cafeEauBac.png";
 				break;
 			case 3 :
-				tache = "Chauffer l'eau à 95°";
+				tache = "Alors chauffer l'eau à 95°";
+				urlImg = "images/cuisine_cafeFeu95.png";
+				son ("fire");
 				break;
 			case 4 :
 				tache = "Tant que";
 				break;
 			case 5 :
-				tache = "Contient de l'eau dans le bac";
+				tache = "Il y a de l'eau dans le bac";
+				urlImg = "images/cuisine_cafeEauBac.png";
 				break;
 			case 6 :
 				tache = "Verser l'eau dans le compartiment à café";
+				urlImg = "images/cuisine_cafeEau.PNG";
+				son ("water");
 				break;
 			case 7 :
 				tache = "Arrêter machine";
+				urlImg = "images/cuisine_cafeOff.png";
+				son ("turnOff");
 				break;
 			case 8 :
 				tache = "Sinon";
 				break;
 			case 9 :
 				tache = "Faire clignoter le voyant rouge";
+				urlImg = "images/cuisine_cafeVoyant.png";
+				son ("alarm");
 				break;
 			}
 		}
@@ -150,7 +163,7 @@ public class runGame {
 	public boolean solution() {
 		int tab[] = new int[l.size()];
 		for(int i = 0 ; i < l.size() ; i++) tab[i] = (int) l.get(i);
-		if(niveau==1) return tabEgaux(tab, sol1);
+		if(niveau==1) return (tabEgaux(tab, sol11) || tabEgaux(tab, sol12));
 		if(niveau == 2) return (tabEgaux(tab, sol21) || tabEgaux(tab, sol22));
 		return false;
 	}

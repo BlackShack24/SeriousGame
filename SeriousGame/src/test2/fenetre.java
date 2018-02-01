@@ -20,10 +20,10 @@ import javax.swing.JPanel;
 
 public class fenetre extends Canvas implements ActionListener {
 
-	private static JPanel cell0, cell1, cell2, cell3, content;
+	private static JPanel cell0, cell1, cell2, cell3, cell4, content;
 	//private static JLabel image, image2, image3, image4;
 	private static ArrayList al = new ArrayList();
-	private static JLabel image, text, text2;
+	private static JLabel image, text, text2, text3;
 	private static JButton init, exec, next;
 	private static JFrame f;
 	private static DragListener drag;
@@ -41,15 +41,7 @@ public class fenetre extends Canvas implements ActionListener {
 			message("Vous venez d’acheter une maison et vous souhaitez qu’elle soit entièrement connectée. Pour cela, vous devez programmer vous-même tous \nles appareils de votre maison.\n" + 
 					"Cette béta est composée de 3 niveaux. Le premier vous permet de vous familiariser avec les outils en vous demandant une action simple. \nEnsuite, nous vous demanderons de programmer les appareils de votre maison.\n",
 					"Pitch");
-			message("Comme toutes les machines, vous appliquez une suite logique d’actions\n pour vos tâches quotidiennes.  "
-					+ "Programmer l’action suivante : se préparer le café.", "Niveau 1");
-		} else if(niveau==2) {
-			message("Fonctionnement : Lorsque le bouton START est allumé, la machine chauffe d’abord l’eau à une température de 95°C seulement si il\n "
-					+ "y a bien de l’eau dans le compartiment. S’il n’y a pas d’eau alors la machine fait clignoter son bouton avec un voyant rouge.\n  "
-					+ "Lorsque l’eau est chauffée à 95°C, grâce à sa pompe, l’eau est versée dans le compartiment à café. La machine s’arrête quand il\n "
-					+ "n’y a plus d’eau dans le compartiment et une lumière verte s’allume pour indiquer que le café est prêt.", "Niveau 2");
-		}
-
+		} 
 
 		//On crée nos différents conteneurs
 		cell0 = new JPanel();
@@ -63,8 +55,10 @@ public class fenetre extends Canvas implements ActionListener {
 		cell2.setLayout(new GridLayout(2,1));
 //		cell2.setBackground(Color.RED);
 		cell3 = new JPanel();
-		cell3.setPreferredSize(new Dimension(750, 625));
+		cell3.setPreferredSize(new Dimension(750, 375));
 //		cell3.setBackground(Color.GREEN);
+		cell4 = new JPanel();
+		cell4.setPreferredSize(new Dimension(750, 250));
 		
 		// Placement des éléments Bas Droite
 		image = new JLabel(new ImageIcon("images/cuisine.PNG"));
@@ -83,7 +77,6 @@ public class fenetre extends Canvas implements ActionListener {
 			cell0.add(next);
 		}
 
-
 		// Placement des éléments Bas Gauche
 		for(int i = 0; i < nbPieces; i++) {
 			al.add(new JLabel(new ImageIcon("images/lvl"+niveau+"/lvl"+niveau+"_"+(i+1)+".png")));
@@ -97,7 +90,7 @@ public class fenetre extends Canvas implements ActionListener {
 			((Component) al.get(i)).addMouseMotionListener( drag );
 		}			
 
-		// Placement des éléments Haut Droite
+		// Placement des éléments Milieu Droite
 		String description = "";
 		if(niveau==1) description = "Préparer un café";
 		else if(niveau==2) description = "Aider la machine à faire votre café";
@@ -109,8 +102,21 @@ public class fenetre extends Canvas implements ActionListener {
 		text2.setHorizontalAlignment(JLabel.CENTER);
 		cell2.add(text);
 		cell2.add(text2);
-
-
+		
+		// Placement des éléments Bas Droite
+		String resume = "";
+		if(niveau==1) resume = "<html><center><h2>Consignes</h2>Comme toutes les machines, vous appliquez une suite logique <br>d’actions pour vos tâches quotidiennes. "
+				+ "<br>Programmer l’action suivante : se préparer le café.</center></html>";
+		else if(niveau==2) resume = "<html><center><h2>Consignes</h2>Fonctionnement : Lorsque le bouton START est allumé, la machine chauffe d’abord l’eau à une température<br>"
+				                  + " de 95°C seulement si il y a bien de l’eau dans le compartiment. S’il n’y a pas d’eau alors<br> la machine fait clignoter son "
+				                  + "bouton avec un voyant rouge. Lorsque l’eau est chauffée à 95°C, <br>grâce à sa pompe, l’eau est versée dans le compartiment à "
+				                  + "café. La machine s’arrête quand il n’y a plus <br>d’eau dans le compartiment et une lumière verte s’allume pour indiquer que "
+				                  + "le café est prêt.</center></html>";
+		text3 = new JLabel(resume);
+		text3.setFont(new Font("Arial",Font.ITALIC,14));
+		text3.setHorizontalAlignment(JLabel.CENTER);
+		cell4.add(text3);
+		
 		content = (JPanel) f.getContentPane();
 		content.setLayout(null);
 		content.add(this);
@@ -137,9 +143,17 @@ public class fenetre extends Canvas implements ActionListener {
 		gbc.gridheight = 5;
 		content.add(cell1, gbc);
 
-		//Partie Bas droite
+		//Partie Milieu droite
 		gbc.gridx = 6;
+		gbc.gridheight = 3;
 		content.add(cell3, gbc);
+		
+		// Partie Bas droite
+		gbc.gridy = 4;
+		gbc.gridheight = 2;
+		content.add(cell4, gbc);
+		
+		
 
 		f.setContentPane(content);
 		f.pack();

@@ -92,9 +92,16 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 							(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(((Piece) tab.get(i)).getCbY()-((Piece) tab.get(numPiece)).getChY())
 							);		
 					if(i!=numPiece) {
-						if(ht.containsKey(i))
+						if(ht.containsKey(i)) {
 							if((int)ht.get(i) == numPiece) ht.remove(i);
-						ht.put(i, numPiece);
+							if(i == 1 || i == 4) {
+								if(ht.containsKey(ht.get(i))) ht.put(ht.get(ht.get(i)), numPiece);
+							}
+							else if (i == 8) {
+								ht.put(ht.get(i), numPiece);
+							}
+					    }
+						if(i != 1 && i != 4 && i != 8) ht.put(i, numPiece);
 					}
 				}
 
@@ -127,9 +134,11 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(93-((Piece) tab.get(numPiece)).getChY())
 								);			
 						if(i!=numPiece) {
-							if(ht.containsKey(i))
+							if(ht.containsKey(i)) {
 								if((int)ht.get(i) == numPiece) ht.remove(i);
-							ht.put(i,numPiece);
+								else ht.put((int)ht.get(i), numPiece);
+							}
+							//ht.put(i,numPiece);
 						}
 					}
 				}
@@ -145,8 +154,9 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(40-((Piece) tab.get(numPiece)).getChY())
 								);			
 						if(i!=numPiece) {
-							if(ht.containsKey(i))
+							if(ht.containsKey(i)) {
 								if((int)ht.get(i) == numPiece) ht.remove(i);
+							}
 							ht.put(i,numPiece);
 						}
 					}
