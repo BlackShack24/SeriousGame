@@ -26,8 +26,10 @@ public class runGame {
 	LinkedList l = new LinkedList();
 	int sol11[] = {0,1,2};
 	int sol12[] = {1,0,2};
-	int sol21[] = {0,1,2,3,4,5,6,8,9,7};
-	int sol22[] = {0,1,5,3,4,2,6,8,9,7};
+	int sol41[] = {0,1,2,3,4,5,6,8,9,7};
+	int sol42[] = {0,1,5,3,4,2,6,8,9,7};
+	int sol21[] = {2,1,0};
+	int sol31[] = {0,2,1};
 
 	
 	public runGame(Hashtable ht, JLabel txt, JLabel img, int niveau) {
@@ -109,7 +111,43 @@ public class runGame {
 				break;
 			}
 		}
-		else if (niveau==2) {
+		else if(niveau==2) {
+			switch(num) {
+			case 0 :
+				tache = "Alors allumer la cafetière";
+				urlImg = "images/cuisine_cafeOn.png";
+				son ("turnOn");
+				break;
+			case 1 :
+				tache = "le four est allumé";
+				urlImg = "images/cuisine_fourOn.png";
+				son ("turnOn");
+				break;
+			case 2 :
+				tache = "Si";
+				urlImg = "images/cuisine.PNG";
+				break;
+			}
+		}
+		else if(niveau==3) {
+			switch(num) {
+			case 0 :
+				tache = "Tant que";
+				urlImg = "images/cuisine.PNG";
+				break;
+			case 1 :
+				tache = "Alors chauffer le four";
+				urlImg = "images/cuisine_fourFeu.PNG";
+				son ("fire");
+				break;
+			case 2 :
+				tache = "La café n'est pas fini";
+				urlImg = "images/cuisine_cafeCafeCours.png";
+				son("coffee");
+				break;
+			}
+		}
+		else if (niveau==4) {
 			urlImg = "images/cuisine.PNG";
 			switch(num) {
 			case 0 :
@@ -152,7 +190,7 @@ public class runGame {
 			case 9 :
 				tache = "Faire clignoter le voyant rouge";
 				urlImg = "images/cuisine_cafeVoyant.png";
-				son ("alarm");
+				//son ("alarm");
 				break;
 			}
 		}
@@ -164,7 +202,9 @@ public class runGame {
 		int tab[] = new int[l.size()];
 		for(int i = 0 ; i < l.size() ; i++) tab[i] = (int) l.get(i);
 		if(niveau==1) return (tabEgaux(tab, sol11) || tabEgaux(tab, sol12));
-		if(niveau == 2) return (tabEgaux(tab, sol21) || tabEgaux(tab, sol22));
+		if(niveau==2) return (tabEgaux(tab, sol21));
+		if(niveau==3) return (tabEgaux(tab, sol31));
+		if(niveau == 4) return (tabEgaux(tab, sol41) || tabEgaux(tab, sol42));
 		return false;
 	}
 	

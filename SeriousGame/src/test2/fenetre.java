@@ -39,7 +39,7 @@ public class fenetre extends Canvas implements ActionListener {
 		// CONDITION
 		if(niveau==1) {
 			message("Vous venez d’acheter une maison et vous souhaitez qu’elle soit entièrement connectée. Pour cela, vous devez programmer vous-même tous \nles appareils de votre maison.\n" + 
-					"Cette béta est composée de 3 niveaux. Le premier vous permet de vous familiariser avec les outils en vous demandant une action simple. \nEnsuite, nous vous demanderons de programmer les appareils de votre maison.\n",
+					"Cette béta est composée de 4 niveaux. Le premier vous permet de vous familiariser avec les outils en vous demandant une action simple. \nEnsuite, nous vous demanderons de programmer les appareils de votre maison.\n",
 					"Pitch");
 		} 
 
@@ -71,7 +71,7 @@ public class fenetre extends Canvas implements ActionListener {
 		exec.addActionListener(this);
 		cell0.add(init); 
 		cell0.add(exec);
-		if(niveau==1) {
+		if(niveau!=4) {
 			next = new JButton("Niveau "+(niveau+1));
 			next.addActionListener(this);
 			cell0.add(next);
@@ -93,7 +93,9 @@ public class fenetre extends Canvas implements ActionListener {
 		// Placement des éléments Milieu Droite
 		String description = "";
 		if(niveau==1) description = "Préparer un café";
-		else if(niveau==2) description = "Aider la machine à faire votre café";
+		else if(niveau==2) description = "Connectez votre four et votre machine à café - étape 1";
+		else if(niveau==3) description = "Connectez votre four et votre machine à café - étape 2";
+		else if(niveau==4) description = "Aider la machine à faire votre café";
 		text = new JLabel(description);
 		text.setFont(new Font("Arial",Font.ITALIC,20));
 		text.setHorizontalAlignment(JLabel.CENTER);
@@ -102,19 +104,27 @@ public class fenetre extends Canvas implements ActionListener {
 		text2.setHorizontalAlignment(JLabel.CENTER);
 		cell2.add(text);
 		cell2.add(text2);
-		
+	
 		// Placement des éléments Bas Droite
 		String resume = "";
 		if(niveau==1) resume = "<html><center><h2>Consignes</h2>Comme toutes les machines, vous appliquez une suite logique <br>d’actions pour vos tâches quotidiennes. "
 				+ "<br>Programmer l’action suivante : se préparer le café.</center></html>";
-		else if(niveau==2) resume = "<html><center><h2>Consignes</h2>Fonctionnement : Lorsque le bouton START est allumé, la machine chauffe d’abord l’eau à une température<br>"
-				                  + " de 95°C seulement si il y a bien de l’eau dans le compartiment. S’il n’y a pas d’eau alors<br> la machine fait clignoter son "
-				                  + "bouton avec un voyant rouge. Lorsque l’eau est chauffée à 95°C, <br>grâce à sa pompe, l’eau est versée dans le compartiment à "
-				                  + "café. La machine s’arrête quand il n’y a plus <br>d’eau dans le compartiment et une lumière verte s’allume pour indiquer que "
-				                  + "le café est prêt.</center></html>";
+		else if(niveau==2) resume = "<html><center><h2>Consignes</h2>Tous les matins, vous faites chauffer votre pain au four après avoir fait le café.<br> "
+				+ "Vous aimeriez donc connecter votre four à la machine à café. <br>"
+				+ "Faîtes un programme qui connecte vos deux appareils.</center></html>";
+		else if(niveau==3) resume = "<html><center><h2>Consignes</h2>A présent vous souhaitez uniquement que votre four chauffe le temps que votre café <br>"
+				+ "coule dans la thermos. Quand la machine à café a finit, le four s’arrête.</center></html>";
+		else if(niveau==4) resume = "<html><center><h2>Consignes</h2></center>"
+				+ "Fonctionnement : <br>"
+				+ "- Le bouton START s'allume.<br>"
+				+ "- La machine chauffe l’eau à une température de 95°C si il y a de l’eau dans le compartiment.<br>"
+				+ "- L’eau est ensuite versée dans le compartiment à café jusqu'à ce que la compartiment soit vide.<br>"
+				+ "- S’il n’y a pas d’eau alors la machine fait clignoter son bouton avec un voyant rouge.<br>"
+				+ "- La machine s'arrête lorsque toutes les taches ont été effectuées.</html>";
 		text3 = new JLabel(resume);
 		text3.setFont(new Font("Arial",Font.ITALIC,14));
 		text3.setHorizontalAlignment(JLabel.CENTER);
+		text3.setVerticalAlignment(JLabel.BOTTOM);
 		cell4.add(text3);
 		
 		content = (JPanel) f.getContentPane();
@@ -126,32 +136,33 @@ public class fenetre extends Canvas implements ActionListener {
 		//L'objet servant à positionner les composants
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		//Partie Gauche Haut
+		//Partie Haut Gauche
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridheight = 1;
+		gbc.gridheight = 2;
 		gbc.gridwidth = 6;
-		content.add(cell0, gbc);
+		content.add(cell4, gbc);
 
 		//Partie Haut droite
 		gbc.gridx = 6;
-		content.add(cell2, gbc);
-
-		// Partie Gauche Bas
-		gbc.gridx = 0;
-		gbc.gridy = 1;
 		gbc.gridheight = 5;
 		content.add(cell1, gbc);
 
-		//Partie Milieu droite
-		gbc.gridx = 6;
+		// Partie Milieu Gauche
+		gbc.gridx = 0;
+		gbc.gridy = 2;
 		gbc.gridheight = 3;
 		content.add(cell3, gbc);
+
+		//Partie Bas droite
+		gbc.gridx = 6;
+		gbc.gridy = 5;
+		gbc.gridheight = 1;
+		content.add(cell0, gbc);
 		
 		// Partie Bas droite
-		gbc.gridy = 4;
-		gbc.gridheight = 2;
-		content.add(cell4, gbc);
+		gbc.gridx = 0;
+		content.add(cell2, gbc);
 		
 		
 
@@ -174,7 +185,15 @@ public class fenetre extends Canvas implements ActionListener {
 		}
 		else if(arg0.getActionCommand().equalsIgnoreCase("Niveau 2")) {
 			al.clear();
-			new fenetre(2, 10);
+			new fenetre(2, 3);
+		}
+		else if(arg0.getActionCommand().equalsIgnoreCase("Niveau 3")) {
+			al.clear();
+			new fenetre(3, 3);
+		}
+		else if(arg0.getActionCommand().equalsIgnoreCase("Niveau 4")) {
+			al.clear();
+			new fenetre(4, 10);
 		}
 
 	}

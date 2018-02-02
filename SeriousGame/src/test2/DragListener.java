@@ -23,11 +23,20 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 		this.niveau = niveau;
 		for(int i=0 ; i<jl.size() ; i++) {
 			if(niveau==1) tab.add(new Piece((JLabel) jl.get(i), 256, 133, 103, 11, 103, 114));
-			else if (niveau == 2) {
+			else if (niveau==2) {
+				if(i == 2) tab.add(new Piece((JLabel) jl.get(i), 130, 51, 51, 5, 51, 58));
+				else tab.add(new Piece((JLabel) jl.get(i), 322, 172, 51, 5, 51, 164));
+			}
+			else if (niveau==3) {
+				if(i == 0) tab.add(new Piece((JLabel) jl.get(i), 130, 51, 51, 5, 51, 58));
+				else tab.add(new Piece((JLabel) jl.get(i), 322, 172, 51, 5, 51, 164));
+			}
+			else if (niveau == 4) {
 				if(i != 1 && i != 4 && i != 8) tab.add(new Piece((JLabel) jl.get(i), 130, 51, 51, 5, 51, 58));
 				else if(i == 8) tab.add(new Piece((JLabel) jl.get(i), 198, 124, 51, 5, 51, 115));
 				else tab.add(new Piece((JLabel) jl.get(i), 322, 172, 51, 5, 51, 164));
 			}
+
 		}    	
 	}
 
@@ -45,6 +54,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 			int x = location.x - pressed.getX() + me.getX();
 			int y = location.y - pressed.getY() + me.getY();
 			component.setLocation(x, y);
+			//((Piece) tab.get(2)).getJl().setLocation(x,y);
 		}
 
 	}
@@ -59,7 +69,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 			if(niveau==1) {
 				depX=260; depY=160;
 			}
-			else if(niveau==2) {
+			else if(niveau!=1) {
 				depX=250; depY=30;
 			}	
 
@@ -94,26 +104,34 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 					if(i!=numPiece) {
 						if(ht.containsKey(i)) {
 							if((int)ht.get(i) == numPiece) ht.remove(i);
-							if(i == 1 || i == 4) {
-								if(ht.containsKey(ht.get(i))) ht.put(ht.get(ht.get(i)), numPiece);
-							}
-							else if (i == 8) {
-								ht.put(ht.get(i), numPiece);
-							}
-					    }
-						if(i != 1 && i != 4 && i != 8) ht.put(i, numPiece);
+								if(niveau==4 && (i == 1 || i == 4)
+									|| (niveau==3 && i==0)
+									|| (niveau==2 && i==2)) {
+									if(ht.containsKey(ht.get(i))) ht.put(ht.get(ht.get(i)), numPiece);
+								}
+								else if (niveau==4 && i == 8) {
+									ht.put(ht.get(i), numPiece);
+								}
+						}
+						if((i != 1 && i != 4 && i != 8 && niveau==4) 
+							|| (i!=0 && niveau==3)
+							|| (i!=2 && niveau==2)
+							|| niveau==1) ht.put(i, numPiece);
 					}
 				}
-
-				else if(isTouched(i, numPiece, 149, 39)) { // SI & TANT QUE
-					if(niveau==2 && (i == 1 || i == 4) && (numPiece == 2 || numPiece == 5)) {
+				int decalageY = 25;
+				if(niveau==4) decalageY+=14;
+				else if(isTouched(i, numPiece, 149, decalageY)) { // SI & TANT QUE
+					if((niveau==4 && (i == 1 || i == 4) && (numPiece == 2 || numPiece == 5))
+						|| (niveau==3 && i==0 && numPiece!=0)
+						|| (niveau==2 && i==2 && numPiece!=2)) {
 						if(!first) {
 							((Piece) tab.get(i)).getJl().setLocation(depX, depY);
 							first = true;
 						}
 						component.setLocation(
 								(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(149-((Piece) tab.get(numPiece)).getChX()), 
-								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(39-((Piece) tab.get(numPiece)).getChY())
+								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(decalageY-((Piece) tab.get(numPiece)).getChY())
 								);			
 						if(i!=numPiece) {
 							if(ht.containsKey(i))
@@ -122,16 +140,19 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 						}
 					}
 				}
-
-				if(isTouched(i, numPiece, 246, 93)) { // ALORS
-					if(niveau==2 && (i == 1 || i == 4) && numPiece != 1 && numPiece != 4 && numPiece != 8) {
+				decalageY = 79;
+				if(niveau==4) decalageY+=14;
+				if(isTouched(i, numPiece, 246, decalageY)) { // ALORS
+					if((niveau==4 && (i == 1 || i == 4) && numPiece != 1 && numPiece != 4 && numPiece != 8)
+						|| (niveau==3 && i==0 && numPiece!=0)
+						|| (niveau==2 && i==2 && numPiece!=2)) {
 						if(!first) {
 							((Piece) tab.get(i)).getJl().setLocation(depX, depY);
 							first = true;
 						}
 						component.setLocation(
 								(int)((Piece) tab.get(i)).getJl().getLocation().getX()+(246-((Piece) tab.get(numPiece)).getChX()), 
-								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(93-((Piece) tab.get(numPiece)).getChY())
+								(int)((Piece) tab.get(i)).getJl().getLocation().getY()+(decalageY-((Piece) tab.get(numPiece)).getChY())
 								);			
 						if(i!=numPiece) {
 							if(ht.containsKey(i)) {
@@ -161,7 +182,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 						}
 					}
 				}
-				
+
 			}
 		}
 
@@ -170,6 +191,7 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 			int var = (int) k.nextElement();
 			System.out.println(var+" - "+ht.get(var));
 		}
+		System.out.println("---");
 	}
 
 
@@ -182,9 +204,9 @@ public class DragListener extends MouseInputAdapter implements MouseListener
 		Piece p = ((Piece) tab.get(j1));
 		Piece p2 = ((Piece) tab.get(j2));
 		if(p.getJl().getX()+pX >= p2.getJl().getX()+p2.getChX()-15
-		&& p.getJl().getX()+pX <= p2.getJl().getX()+p2.getChX()+15
-		&& p.getJl().getY()+pY >= p2.getJl().getY()+p2.getChY()-15
-		&& p.getJl().getY()+pY <= p2.getJl().getY()+p2.getChY()+15)
+				&& p.getJl().getX()+pX <= p2.getJl().getX()+p2.getChX()+15
+				&& p.getJl().getY()+pY >= p2.getJl().getY()+p2.getChY()-15
+				&& p.getJl().getY()+pY <= p2.getJl().getY()+p2.getChY()+15)
 			return true;
 		return false;
 	}
